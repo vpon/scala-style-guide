@@ -180,8 +180,7 @@ object MyObject {
 
 ### Parameter Lists
 
-When a method has a parameter list with fewer than 70 (or so) characters,
-it should give those parameters on a single line. For example:
+If a function has a parameter list with fewer than 70 characters, put all parameters on the same line:
 
 ```scala
 def add(a: Int, b: Int): Int = {
@@ -189,40 +188,31 @@ def add(a: Int, b: Int): Int = {
 }
 ```
 
-#### Indentation
+If a function has long or complex parameter lists, follow these rules:
 
-For methods with more extensive parameter lists, e.g. those with more than 70 (or so) characters,
-place the first parameter in-line with the method name, and successive parameters on
-successive lines, aligned with the first parameter:
+1. Put the first parameter on the same line as the function name.
+2. Put the rest of the parameters each on a new line, aligned with the first parameter.
+3. If the function has multiple parameter lists, align the opening parenthesis with the previous one and align
+parameters the same as #2.
+
+Example:
 
 ```scala
-def biggerAdd(aReallyLongParameterNameOne: Int,
-              aReallyLongParameterNameTwo: Int,
-              aReallyLongParameterNameThree: Int,
-              aReallyLongParameterNameFour: Int): Int = {
+def lotsOfParams(aReallyLongParameterNameOne: Int,
+                 aReallyLongParameterNameTwo: Int,
+                 aReallyLongParameterNameThree: Int,
+                 aReallyLongParameterNameFour: Int)
+                (implicit adder: Adder,
+                 reader: Reader): Int = {
   ...
 }
 ```
 
-This also applies to methods with multiple parameter lists, which should have their opening parentheses
-*and* successive parameters aligned as follows:
+For function names over 30 characters, try to shorten the name. If you can't,
+start the parameter list on the next line and indent everything 2 spaces:
 
 ```scala
-def biggerAdd(aReallyLongParameterNameOne: Int,
-              aReallyLongParameterNameTwo: Int,
-              aReallyLongParameterNameThree: Int,
-              aReallyLongParameterNameFour: Int)
-             (implicit adder: Adder,
-              reader: Reader): Int = {
-  ...
-}
-```
-
-For methods with long names, about 30 characters, it is acceptable to start the parameter list
-on the next line following the method name. Use an indentation of two spaces:
-
-```scala
-def aMuchLongerMethodNameThatShouldProbablyBeRefactored(
+def aVeryLongMethodThatShouldHaveAShorterNameIfPossible(
   aParam: Int,
   anotherParam: Int,
   aThirdParam: Int)
@@ -232,13 +222,13 @@ def aMuchLongerMethodNameThatShouldProbablyBeRefactored(
 }
 ```
 
-Notice that, in all of these, the return type of the method is always given directly following the
-last closing parenthesis.
+In all cases, the function's return type still has to be written directly
+following the last closing parenthesis.
 
-#### Usage
+#### Calling Functions
 
-When calling methods with numerous arguments, place the first parameter of your method
-on the same line as the method name, and align successive parameters with the first:
+When calling functions with numerous arguments, place the first parameter on the
+same line as the function and align the remaining parameters with the first:
 
 ```scala
 fooBar(someVeryLongFieldName,
@@ -247,8 +237,8 @@ fooBar(someVeryLongFieldName,
        3.1415)
 ```
 
-For methods with very long names, it is acceptable to start the parameter list on the second line,
-indenting by two spaces:
+For functions with very long names, start the parameter list on the second line
+and indent by 2 spaces:
 
 ```scala
 aMuchLongerMethodNameThatShouldProbablyBeRefactored(
@@ -257,10 +247,10 @@ aMuchLongerMethodNameThatShouldProbablyBeRefactored(
   aThirdParam)
 ```
 
-In contrast to restrictions on parentheses in method declaration, it is acceptable to place the parenthesis
-*either* directly following the last parameter of the method invocation *or* on a new line following the last parameter.
-Exercise good judgment here. A dangling parenthesis is useful when it is part of a chained method invocation,
-for example:
+It's your choice whether to place closing parenthesis directly following the
+last parameter or on a new line (in "dangling" style).
+
+You can do this:
 
 ```scala
 aLongMethodNameThatReturnsAFuture(
@@ -268,6 +258,17 @@ aLongMethodNameThatReturnsAFuture(
   anotherParam,
   aThirdParam
 ).map { res =>
+  ...
+}
+```
+
+Or this:
+
+```scala
+aLongMethodNameThatReturnsAFuture(
+  aParam,
+  anotherParam,
+  aThirdParam).map { res =>
   ...
 }
 ```
