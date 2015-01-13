@@ -10,7 +10,7 @@ guides in this repository:
 4. Keep the [scalastyle-config.xml](https://github.paypal.com/Stingray/scala-style-guide/blob/develop/scalastyle-config.xml) in our projects in line with this guide as much as possible.
 
 This repository follows git-flow. If you have a new style guideline, open a pull request against `develop`. We'll
-discuss in the PR comments. The official guidelines live in `master`.
+discuss in the PR comments. The official guidelines live in [master](https://github.com/paypal/scala-style-guide/blob/master/README.md)
 
 # Whitespace
 
