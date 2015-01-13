@@ -1,13 +1,13 @@
-Stingray Scala Style Guidelines
+PayPal Scala Style Guidelines
 =================
 
-This repository contains style guidelines for writing Scala code on the Stingray team. Here are our goals for style
+This repository contains style guidelines for writing Scala code at PayPal. Here are our goals for style
 guides in this repository:
 
 1. Our style guidelines should be clear.
 2. We all should agree on our style guidelines.
 3. We should change this guideline as we learn and as Scala evolves.
-4. Keep the [scalastyle-config.xml](https://github.paypal.com/Stingray/scala-style-guide/blob/develop/scalastyle-config.xml) in our projects in line with this guide as much as possible.
+4. Keep the [scalastyle-config.xml](https://github.com/paypal/scala-style-guide/blob/develop/scalastyle-config.xml) in our projects in line with this guide as much as possible.
 
 This repository follows git-flow. If you have a new style guideline, open a pull request against `develop`. We'll
 discuss in the PR comments. The official guidelines live in [master](https://github.com/paypal/scala-style-guide/blob/master/README.md)
@@ -38,12 +38,12 @@ class MyClass {
 ## Package Objects
 
 File names for package objects must match the most specific name in the package.
-For example, for the `com.paypal.stingray.mypackage` package object, the file
+For example, for the `com.paypal.mypackage` package object, the file
 should be named `mypackage.scala` and the file should be structured like this:
 
 
 ```scala
-package com.paypal.stingray
+package com.paypal
 
 package object mypackage {
   //...
