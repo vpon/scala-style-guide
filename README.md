@@ -34,6 +34,13 @@ class MyClass {
   def myFunction: Int = myValue
 }
 ```
+### Acronyms
+
+Use camel case for acroynms, for example, `HttpUtil`. For consistency, this includes class names like `Ttl` and `Json` as well as common terms such as `Db` and `Io`. Follow normal camel-casing rules.
+
+```scala
+val httpIoJsonToXmlParser = new HttpIoJsonToXmlParser()
+```
 
 ## Package Objects
 
