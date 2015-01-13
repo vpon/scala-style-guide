@@ -34,8 +34,17 @@ class MyClass {
   def myFunction: Int = myValue
 }
 ```
+### Acronyms
+
+Use camel case for acroynms, for example, `HttpUtil`. For consistency, this includes class names like `Ttl` and `Json` as well as common terms such as `Db` and `Io`. Follow normal camel-casing rules.
+
+```scala
+val httpIoJsonToXmlParser = new HttpIoJsonToXmlParser()
+```
 
 ## Package Objects
+
+Package names should be all lowercase with no underscores.
 
 File names for package objects must match the most specific name in the package.
 For example, for the `com.paypal.mypackage` package object, the file
@@ -50,6 +59,11 @@ package object mypackage {
 }
 ```
 
+# Classes
+
+## Public Methods
+
+Limit the number of public methods in your class to 30.
 
 # Throwables
 
@@ -195,7 +209,15 @@ Option(123).map { number =>
 }
 ```
 
-Anonymous functions that contain a single binary operation or method call on the input can use the underscore syntax and should be surrounded by parentheses. For example:
+### Exceptions to the Rule
+
+Use parentheses and an underscore for anonymous functions that are:
+
+* single binary operations
+* a single method invocation on the input
+* two or fewer unary methods on the input
+
+Examples:
 
 ```scala
 val list = List("list", "of", "strings")
@@ -314,6 +336,20 @@ Option(123).map(stuff).getOrElse(0)
 
 You should enforce expected type signatures, as `match` does not guarantee consistent types between match outcomes
 (e.g. the `None` case could return `Int`, while the `Some` case could return `String`).
+
+When creating `Option`s, use
+[`.opt`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L61).
+If the value is a constant, use
+[`.some`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L55)
+instead.
+
+```scala
+val doThisForConstants = "hello".some
+val notThisForConstants = "goodbye".opt
+
+val doThisForEverythingElse = foo().opt
+val notThisForEverythingElse = bar().some
+```
 
 ## For Comprehension
 
