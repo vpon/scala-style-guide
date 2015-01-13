@@ -192,6 +192,101 @@ object MyObject {
 }
 ```
 
+### Parameter Lists
+
+If a function has a parameter list with fewer than 70 characters, put all parameters on the same line:
+
+```scala
+def add(a: Int, b: Int): Int = {
+  ...
+}
+```
+
+If a function has long or complex parameter lists, follow these rules:
+
+1. Put the first parameter on the same line as the function name.
+2. Put the rest of the parameters each on a new line, aligned with the first parameter.
+3. If the function has multiple parameter lists, align the opening parenthesis with the previous one and align
+parameters the same as #2.
+
+Example:
+
+```scala
+def lotsOfParams(aReallyLongParameterNameOne: Int,
+                 aReallyLongParameterNameTwo: Int,
+                 aReallyLongParameterNameThree: Int,
+                 aReallyLongParameterNameFour: Int)
+                (implicit adder: Adder,
+                 reader: Reader): Int = {
+  ...
+}
+```
+
+For function names over 30 characters, try to shorten the name. If you can't,
+start the parameter list on the next line and indent everything 2 spaces:
+
+```scala
+def aVeryLongMethodThatShouldHaveAShorterNameIfPossible(
+  aParam: Int,
+  anotherParam: Int,
+  aThirdParam: Int)
+ (implicit iParam: Foo,
+  bar: Bar): String = {
+  ...
+}
+```
+
+In all cases, the function's return type still has to be written directly
+following the last closing parenthesis.
+
+#### Calling Functions
+
+When calling functions with numerous arguments, place the first parameter on the
+same line as the function and align the remaining parameters with the first:
+
+```scala
+fooBar(someVeryLongFieldName,
+       andAnotherVeryLongFieldName,
+       "this is a string",
+       3.1415)
+```
+
+For functions with very long names, start the parameter list on the second line
+and indent by 2 spaces:
+
+```scala
+aMuchLongerMethodNameThatShouldProbablyBeRefactored(
+  aParam,
+  anotherParam,
+  aThirdParam)
+```
+
+It's your choice whether to place closing parenthesis directly following the
+last parameter or on a new line (in "dangling" style).
+
+You can do this:
+
+```scala
+aLongMethodNameThatReturnsAFuture(
+  aParam,
+  anotherParam,
+  aThirdParam
+).map { res =>
+  ...
+}
+```
+
+Or this:
+
+```scala
+aLongMethodNameThatReturnsAFuture(
+  aParam,
+  anotherParam,
+  aThirdParam).map { res =>
+  ...
+}
+```
+
 ## Anonymous functions
 
 Anonymous functions start on the same line as preceding code. Declarations
@@ -442,3 +537,10 @@ class MyTest extends Specification { override def is = s2"""
   }
 }
 ```
+
+# Further Reading
+
+Several of these recommendations are adapted from the Scala Documentation Style Guide,
+including [Declarations](http://docs.scala-lang.org/style/declarations.html) and
+[Indentation](http://docs.scala-lang.org/style/indentation.html). The guidelines presented
+in this document should supersede all other style recommendations.
