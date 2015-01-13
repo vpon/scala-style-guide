@@ -406,3 +406,10 @@ class MyTest extends Specification { override def is = s2"""
   }
 }
 ```
+
+# Further Reading
+
+Several of these recommendations are adapted from the Scala Documentation Style Guide,
+including [Declarations](http://docs.scala-lang.org/style/declarations.html) and
+[Indentation](http://docs.scala-lang.org/style/indentation.html). The guidelines presented
+in this document should supersede all other style recommendations.
