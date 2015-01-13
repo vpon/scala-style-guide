@@ -143,7 +143,7 @@ class MyActor extends Actor {
 
 ## Modifiers
 
-Optional variable modifiers should be declared in the following order: override access (private|protected) final implicit lazy.
+Optional variable modifiers should be declared in the following order: `override access (private|protected) final implicit lazy`.
 
 For example,
 
