@@ -402,26 +402,11 @@ Option(123) match {
 
 ## Option
 
-`Some` should never be used explicitly except when pattern matching. `Some` will gladly take a `null`, which is against any
-reasonable expectation. Unfortunately, some methods will return `null` in a `Some`, like `Iterator.find(p: T => Boolean)`. These
-should be considered exceptional and this style avoided. The `Some` constructor also makes type inference worse since it should 
-usually be `Option`. This is why `.some`'s return type is `Option`.
-
-Use `Option(something)` instead of `Some(something)`.
-
-When creating `Option`s, you may use
-[`.opt`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L61).
-If the value is a constant, you may use
+Use `Option(...)` or
+[`.opt`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L61)
+to create `Option`s. Only use
 [`.some`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L55)
-instead, which throws on `null`.
-
-```scala
-val doThisForConstants = "hello".some
-val notThisForConstants = "goodbye".opt
-
-val doThisForEverythingElse = foo().opt
-val notThisForEverythingElse = bar().some
-```
+for constant, non-null values. Avoid methods and styles that will return `Some(null)`, such as `Iterator.find(p: T => Boolean)`
 
 Flows with `Option` values should be constructed using the `match` keyword as follows.
 
