@@ -402,6 +402,27 @@ Option(123) match {
 
 ## Option
 
+`Some` should never be used explicitly except when pattern matching. `Some` will gladly take a `null`, which is against any
+reasonable expectation. Unfortunately, some methods will return `null` in a `Some`, like `Iterator.find(p: T => Boolean)`. These
+should be considered exceptional and this style avoided. The `Some` constructor also makes type inference worse since it should 
+usually be `Option`. This is why `.some`'s return type is `Option`.
+
+Use `Option(something)` instead of `Some(something)`.
+
+When creating `Option`s, you may use
+[`.opt`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L61).
+If the value is a constant, you may use
+[`.some`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L55)
+instead, which throws on `null`.
+
+```scala
+val doThisForConstants = "hello".some
+val notThisForConstants = "goodbye".opt
+
+val doThisForEverythingElse = foo().opt
+val notThisForEverythingElse = bar().some
+```
+
 Flows with `Option` values should be constructed using the `match` keyword as follows.
 
 ```scala
@@ -431,26 +452,6 @@ Option(123).map(stuff).getOrElse(0)
 
 You should enforce expected type signatures, as `match` does not guarantee consistent types between match outcomes
 (e.g. the `None` case could return `Int`, while the `Some` case could return `String`).
-
-`Some` should never be used explicitly except when pattern matching. `Some` will gladly take a `null`, which is against any
-reasonable expectation. The `Some` constructor also makes type inference worse since it should usually be `Option`.
-(This is why `.some`'s return type is `Option`.)
-
-Use `Option(something)` instead of `Some(something)`.
-
-When creating `Option`s, you may use
-[`.opt`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L61).
-If the value is a constant, you may use
-[`.some`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L55)
-instead, which throws on `null`.
-
-```scala
-val doThisForConstants = "hello".some
-val notThisForConstants = "goodbye".opt
-
-val doThisForEverythingElse = foo().opt
-val notThisForEverythingElse = bar().some
-```
 
 ## For Comprehension
 
