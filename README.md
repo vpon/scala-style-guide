@@ -173,24 +173,6 @@ Rules to follow for all functions:
 * Always put a space after `,` in function signatures.
 
 ## Public Functions
-All public functions and methods, including those inside `object`s must have:
-
-* A return type
-* Scaladoc including a function overview, information on parameters and information on the return value
-
-Here is a complete example of a function inside of an `object`.
-
-```scala
-object MyObject {
-  /**
-   * returns the static integer 123
-   * @return the number 123
-   */
-  def myFunction: Int = {
-    123
-  }
-}
-```
 
 ### Parameter Lists
 
@@ -536,6 +518,60 @@ class MyTest extends Specification { override def is = s2"""
     }
   }
 }
+```
+
+# Scaladoc, Comments, and Annotations
+
+All classes, objects, traits, and methods should be documented. Generally, follow the documentation guidelines
+provided by the Scala Documentation Style Guide on [ScalaDoc](http://docs.scala-lang.org/style/scaladoc.html).
+
+## Classes, Objects, and Traits
+
+All classes, objects, and traits, regardless of scope, should be documented, at least with a description of the information
+communicated or interfaces provided by the class/trait/object. ScalaDoc is recommended, however often it is the case that a
+class/trait/object is obvious in its intent by virtue of semantic naming or source code context.
+
+Classes that should be instantiated via methods in a companion object **must** include ScalaDoc documentation,
+containing at least one code example as to this usage. Companion objects may generally be left without comments, as their
+usage is understood.
+
+Abstract classes should be documented with an example of their intended implementation, and it is recommended to also
+include ScalaDoc documentation with at least one code example. This is less important for sealed abstract classes, whose
+implementations are given within the same file. Such implementations should themselves be the point of documentation.
+
+Case classes and case objects should be documented, however as these are often used as data containers with semantic names
+and semantic field names, it is acceptable to leave these relatively undocumented, so long as their usage is documented
+nearby. This is left to the discretion of the developer.
+
+Implicit wrapper classes **must** include ScalaDoc documentation, containing at least one code example as to the usage
+of the methods provided in the class.
+
+Package objects should document the usage of their contents, especially those package objects that provide implicit
+methods and wrapper classes.
+
+## Methods
+
+Public, protected, and package-private methods **must** be documented with full ScalaDoc,
+including `@param`, `@tparam`, `@return` and `@throws` entries where appropriate. IntelliJ
+and other IDEs can autogenerate much of the skeleton for a ScalaDoc block for you, to help this process.
+
+Private methods should be documented, however it is left to the discretion of the developer
+as to the level of documentation, e.g. if the method action is obvious. ScalaDoc is not required
+for private methods.
+
+All methods, regardless of scope, **must** include `@throws[ExceptionType]` annotations if they
+throw an exception in their normal operation. This is a consideration toward
+[Defensive Programming](https://en.wikipedia.org/wiki/Defensive_programming), and improves
+the accessibility of our codebase. This should directly follow any comments, including ScalaDoc blocks,
+and precede the method declaration, such as:
+
+```scala
+/**
+ * Does a thing.
+ * @throws SomeException when bad things happen
+ */
+@throws[SomeException] 
+def foo: Unit = { ...
 ```
 
 # Further Reading
