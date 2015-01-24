@@ -529,7 +529,7 @@ In short:
 
 * Classes that are instantiated via methods in a companion object **must** include ScalaDoc documentation with an example
 * Implicit wrapper classes **must** include ScalaDoc documentation with an example
-* Public, protected, and package-private methods **must* include ScalaDoc documentation
+* Public, protected, and package-private methods **must** include ScalaDoc documentation
 * All methods **must** include `@throws` annotations if they throw an exception in their normal operation
 * Use your best judgment otherwise, and err toward more documentation rather than less
 
