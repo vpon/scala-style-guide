@@ -535,9 +535,8 @@ In short:
 
 ## Classes, Objects, and Traits
 
-All classes, objects, and traits, regardless of scope, should be documented, at least with a description of the information
-communicated or interfaces provided by the class/trait/object. ScalaDoc is recommended, however often it is the case that a
-class/trait/object is obvious in its intent by virtue of semantic naming or source code context.
+All classes, objects, and traits, regardless of scope, should be documented. This should include at least a description
+of the information communicated or interfaces provided by the class/object/trait. ScalaDoc is strongly recommended.
 
 Classes that should be instantiated via methods in a companion object **must** include ScalaDoc documentation,
 containing at least one code example as to this usage. Companion objects may generally be left without comments, as their
