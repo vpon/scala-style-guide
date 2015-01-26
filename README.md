@@ -176,7 +176,7 @@ Rules to follow for all functions:
 All public functions and methods, including those inside `object`s must have:
 
 * A return type
-* Scaladoc including a function overview, information on parameters, and information on the return value. See the Scaladoc section for more details.
+* Scaladoc including a function overview, information on parameters, and information on the return value. See the [Scaladoc](#scaladoc-comments-and-annotations) section for more details.
 
 Here is a complete example of a function inside of an `object`.
 
