@@ -173,6 +173,24 @@ Rules to follow for all functions:
 * Always put a space after `,` in function signatures.
 
 ## Public Functions
+All public functions and methods, including those inside `object`s must have:
+
+* A return type
+* Scaladoc including a function overview, information on parameters, and information on the return value. See the Scaladoc section for more details.
+
+Here is a complete example of a function inside of an `object`.
+
+```scala
+object MyObject {
+  /**
+   * returns the static integer 123
+   * @return the number 123
+   */
+  def myFunction: Int = {
+    123
+  }
+}
+```
 
 ### Parameter Lists
 
