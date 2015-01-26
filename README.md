@@ -176,7 +176,7 @@ Rules to follow for all functions:
 All public functions and methods, including those inside `object`s must have:
 
 * A return type
-* Scaladoc including a function overview, information on parameters and information on the return value
+* Scaladoc including a function overview, information on parameters, and information on the return value. See the [Scaladoc](#scaladoc-comments-and-annotations) section for more details.
 
 Here is a complete example of a function inside of an `object`.
 
@@ -537,6 +537,22 @@ class MyTest extends Specification { override def is = s2"""
   }
 }
 ```
+
+# Scaladoc, Comments, and Annotations
+
+All classes, objects, traits, and methods should be documented. Generally, follow the documentation guidelines
+provided by the Scala Documentation Style Guide on [ScalaDoc](http://docs.scala-lang.org/style/scaladoc.html).
+
+Rules:
+
+* Classes that are instantiated via methods in a companion object **must** include ScalaDoc documentation with a code example.
+* Abstract classes *should* be documented with an example of their intended implementation.
+* Implicit wrapper classes **must** include ScalaDoc documentation with a code example.
+* Public, protected, and package-private methods **must** include ScalaDoc documentation.
+* Private methods *should* be documented, however it is left to the discretion of the developer as to the level of documentation.
+* All methods **must** include `@throws` annotations if they throw an exception in their normal operation.
+
+Use your best judgment otherwise, and err toward more documentation rather than less.
 
 # Further Reading
 
