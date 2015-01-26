@@ -525,61 +525,16 @@ class MyTest extends Specification { override def is = s2"""
 All classes, objects, traits, and methods should be documented. Generally, follow the documentation guidelines
 provided by the Scala Documentation Style Guide on [ScalaDoc](http://docs.scala-lang.org/style/scaladoc.html).
 
-In short:
+Rules:
 
-* Classes that are instantiated via methods in a companion object **must** include ScalaDoc documentation with an example
-* Implicit wrapper classes **must** include ScalaDoc documentation with an example
-* Public, protected, and package-private methods **must** include ScalaDoc documentation
-* All methods **must** include `@throws` annotations if they throw an exception in their normal operation
-* Use your best judgment otherwise, and err toward more documentation rather than less
+* Classes that are instantiated via methods in a companion object **must** include ScalaDoc documentation with a code example.
+* Abstract classes *should* be documented with an example of their intended implementation.
+* Implicit wrapper classes **must** include ScalaDoc documentation with a code example.
+* Public, protected, and package-private methods **must** include ScalaDoc documentation.
+* Private methods *should* be documented, however it is left to the discretion of the developer as to the level of documentation.
+* All methods **must** include `@throws` annotations if they throw an exception in their normal operation.
 
-## Classes, Objects, and Traits
-
-All classes, objects, and traits, regardless of scope, should be documented. This should include at least a description
-of the information communicated or interfaces provided by the class/object/trait. ScalaDoc is strongly recommended.
-
-Classes that should be instantiated via methods in a companion object **must** include ScalaDoc documentation,
-containing at least one code example as to this usage. Companion objects may generally be left without comments, as their
-usage is understood.
-
-Abstract classes should be documented with an example of their intended implementation, and it is recommended to also
-include ScalaDoc documentation with at least one code example. This is less important for sealed abstract classes, whose
-implementations are given within the same file. Such implementations should themselves be the point of documentation.
-
-Case classes and case objects should be documented, however as these are often used as data containers with semantic names
-and semantic field names, it is acceptable to leave these relatively undocumented, so long as their usage is documented
-nearby. This is left to the discretion of the developer.
-
-Implicit wrapper classes **must** include ScalaDoc documentation, containing at least one code example as to the usage
-of the methods provided in the class.
-
-Package objects should document the usage of their contents, especially those package objects that provide implicit
-methods and wrapper classes.
-
-## Methods
-
-Public, protected, and package-private methods **must** be documented with full ScalaDoc,
-including `@param`, `@tparam`, `@return` and `@throws` entries where appropriate. IntelliJ
-and other IDEs can autogenerate much of the skeleton for a ScalaDoc block for you, to help this process.
-
-Private methods should be documented, however it is left to the discretion of the developer
-as to the level of documentation, e.g. if the method action is obvious. ScalaDoc is not required
-for private methods.
-
-All methods, regardless of scope, **must** include `@throws[ExceptionType]` annotations if they
-throw an exception in their normal operation. This is a consideration toward
-[Defensive Programming](https://en.wikipedia.org/wiki/Defensive_programming), and improves
-the accessibility of our codebase. This should directly follow any comments, including ScalaDoc blocks,
-and precede the method declaration, such as:
-
-```scala
-/**
- * Does a thing.
- * @throws SomeException when bad things happen
- */
-@throws[SomeException] 
-def foo: Unit = { ...
-```
+Use your best judgment otherwise, and err toward more documentation rather than less.
 
 # Further Reading
 
