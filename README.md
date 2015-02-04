@@ -377,7 +377,7 @@ In general, logic that handles a choice between two or more outcomes should pref
 
 When you `match` on any type, follow these rules:
 
-1. Pattern matching should be exhaustive and explicitly handle the failure/default case rather than relying on a runtime `MatchError`. Case classes used in pattern matching should extend a common `sealed trait` so that compiler warnings will be generated for inexhaustive matching.
+1. Pattern matching should be exhaustive and explicitly handle the failure/default case rather than relying on a runtime `MatchError`. (This is specific to match blocks and not case statements in partial functions.) Case classes used in pattern matching should extend a common `sealed trait` so that compiler warnings will be generated for inexhaustive matching.
 2. Indent all `case` statements at the same level, and put the `=>` one space to
   the right of the closing `)`
 3. If your expression is one line:
@@ -397,13 +397,6 @@ Option(123) match {
   case _ => 123
 }
 ```
-
-## Case Ordering
-
-As a general practice, the ordering of case statements should be prioritized from most likely to be the executed to least likely.
-For example, if you expect a `Try` to generally succeed, the first case in the match should be `Success(s)`, followed by `Failure(f)`.
-
-The same goes for if/else statements, naturally.
 
 ## Option
 
