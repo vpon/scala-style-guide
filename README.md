@@ -377,17 +377,13 @@ In general, logic that handles a choice between two or more outcomes should pref
 
 When you `match` on any type, follow these rules:
 
-1. indent all `case` statements at the same level, and put the `=>` one space to
+1. Pattern matching should be exhaustive and explicitly handle the failure/default case rather than relying on a runtime `MatchError`. (This is specific to match blocks and not case statements in partial functions.) Case classes used in pattern matching should extend a common `sealed trait` so that compiler warnings will be generated for inexhaustive matching.
+2. Indent all `case` statements at the same level, and put the `=>` one space to
   the right of the closing `)`
-2. if your expression is one line:
-  1. put it on the same line as the `case` if doing so will not make the line
-    excessively long
-  2. put it on the line below the `case`, indented one level in from the `case`
-3. If your expression is more than one line, put it on the line below the case,
-  indented one level in from the `case`.
-4. Do not add extra newlines in between each case statement.
-5. Filters on case statements should be on the same level if doing so will not make
-  the line excessively long.
+3. Short single line expressions should be on the same line as the `case`
+4. Long single line and multi-line expressions should be on the line below the case, indented one level from the `case`.
+5. Do not add extra newlines in between each case statement.
+6. Filters on case statements should be on the same line if doing so will not make the line excessively long.
 
 Here's a complete example:
 
