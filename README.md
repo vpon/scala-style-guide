@@ -477,13 +477,6 @@ for {
 }
 ```
 
-## Case Ordering
-
-As a general practice, the ordering of case statements should be prioritized from most likely to be the executed to least likely.
-For example, if you expect a `Try` to generally succeed, the first case in the match should be `Success(s)`, followed by `Failure(f)`.
-
-The same goes for if/else statements, naturally.
-
 # Akka
 
 ## Ask and Tell
