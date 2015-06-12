@@ -1,16 +1,12 @@
-PayPal Scala Style Guidelines
+Vpon's Scala Style Guidelines
 =================
 
-This repository contains style guidelines for writing Scala code at PayPal. Here are our goals for style
+This repository contains style guidelines for writing Scala code at Vpon. The guidelines are based on [Paypal's style](https://github.com/paypal/scala-style-guide/). Here are our goals for style
 guides in this repository:
 
 1. Our style guidelines should be clear.
 2. We all should agree on our style guidelines.
 3. We should change this guideline as we learn and as Scala evolves.
-4. Keep the [scalastyle-config.xml](https://github.com/paypal/scala-style-guide/blob/develop/scalastyle-config.xml) in our projects in line with this guide as much as possible.
-
-This repository follows git-flow. If you have a new style guideline, open a pull request against `develop`. We'll
-discuss in the PR comments. The official guidelines live in [master](https://github.com/paypal/scala-style-guide/blob/master/README.md)
 
 # Whitespace
 
@@ -47,12 +43,12 @@ val httpIoJsonToXmlParser = new HttpIoJsonToXmlParser()
 Package names should be all lowercase with no underscores.
 
 File names for package objects must match the most specific name in the package.
-For example, for the `com.paypal.mypackage` package object, the file
+For example, for the `com.vpon.mypackage` package object, the file
 should be named `mypackage.scala` and the file should be structured like this:
 
 
 ```scala
-package com.paypal
+package com.vpon
 
 package object mypackage {
   //...
@@ -93,7 +89,7 @@ spray
 all other imports
 ___blank line___
 com.ebay
-com.paypal
+com.vpon
 ```
 
 You should also regularly run IntelliJ's Optimize Imports (Edit > Optimize Imports) against
@@ -428,19 +424,6 @@ Option(123).map(stuff).getOrElse(0)
 You should enforce expected type signatures, as `match` does not guarantee consistent types between match outcomes
 (e.g. the `None` case could return `Int`, while the `Some` case could return `String`).
 
-When creating `Option`s, use
-[`.opt`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L61).
-If the value is a constant, use
-[`.some`](https://github.com/paypal/cascade/blob/develop/common/src/main/scala/com/paypal/cascade/common/option/option.scala#L55)
-instead.
-
-```scala
-val doThisForConstants = "hello".some
-val notThisForConstants = "goodbye".opt
-
-val doThisForEverythingElse = foo().opt
-val notThisForEverythingElse = bar().some
-```
 
 ## For Comprehension
 
@@ -493,39 +476,7 @@ someActor2.ask(msg)
 
 # Tests
 
-Write your tests using [Specs2](http://etorreborre.github.io/specs2/). Each
-specification is a single `class` that extends `Specification`. Put each
-specification into its own file. Inside each specification, follow these rules:
-
-- create a single `trait` inside your `Specification` class that extends
-[`CommonImmutableSpecificationContext`](https://github.com/paypal/cascade/blob/develop/common/src/test/scala/com/paypal/cascade/common/tests/util/CommonImmutableSpecificationContext.scala)
-(from [Cascade](https://github.com/paypal/cascade).) Most people name this
-trait `Context`.
-- Group tests into `class`es, `case class`es or `object`s at your discretion.
-- All of your grouped test `class`es, `case class`es and `objects`s should go
-inside your specification class and should extend your `Context` trait
-- All methods inside your test classes should be wrapped with `apply`.
-When you do so, `CommonImmutableSpecificationContext` will execute `before` and
-`after` hooks automatically.
-- Your tests execute concurrently by default. Only change them to execute
-sequentially for a good reason, and document that reason in comments.
-
-Here's an example of the above rules in code:
-
-```scala
-class MyTest extends Specification { override def is = s2"""
-  add(1, 2) should equal 3 ${Add().equals3()}
-  """
-
-  trait Context extends CommonImmutableSpecificationContext
-
-  case class Add() extends Context {
-    def equals3 = apply {
-      add(1, 2) must beEqualTo(3)
-    }
-  }
-}
-```
+TBD
 
 # Scaladoc, Comments, and Annotations
 
