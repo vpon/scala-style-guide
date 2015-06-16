@@ -22,12 +22,16 @@ guides in this repository:
 ## Functions, Classes and Variables
 
 Use camel case for all function, class and variable names. Classes start with an upper case letter, and values and
-functions start with a lower case. Here are some examples:
+functions start with a lower case. Constants use upper case and underscores. Here are some examples:
 
 ```scala
 class MyClass {
   val myValue = 1
   def myFunction: Int = myValue
+}
+
+object MyClass {
+  val BEAUTIFUL_CONSTANT = 12
 }
 ```
 ### Acronyms
@@ -161,12 +165,19 @@ For example,
 private implicit lazy val someSetting = ...
 ```
 
+Use `private[this]` modifier (instance-scope hiding) instead of `private` (unless required by use case).
+
+> *Why?* Scala compiler can optimize `private[this]` modifiers.
+
 # Functions
 
 Rules to follow for all functions:
 
 * Always put a space after `:` characters in function signatures.
 * Always put a space after `,` in function signatures.
+* Make sure a function does not exceed 80 lines (one screen).
+* Using `return` is strongly discouraged (a. k. a. _Use with extreme caution and only in justified cases_).
+* If function is meant to be used outside, always explicitly declare return type.
 
 ## Public Functions
 All public functions and methods, including those inside `object`s must have:
@@ -187,6 +198,38 @@ object MyObject {
   }
 }
 ```
+
+### Partial Functions
+
+One-line partial functions are allowed but only when the whole expression is very short, typically inside `filter` or `map` functions.
+
+```scala
+List((1, 'a'), (2, 'b'), (3, 'c')).map { case (x, _) => x * 2 }
+```
+
+### Nested Functions
+
+Do not use more than two levels of nested functions.
+
+```scala
+class OurClass {
+  
+  // Do
+  def fun1 = {
+    def fun2 = ???
+    ???
+  }
+
+  // Don't
+  def fun1 = {
+    def fun2 = {
+      def fun3 = ???
+      ???
+    }
+    ???
+  }
+
+}
 
 ### Parameter Lists
 
@@ -369,6 +412,40 @@ Option(true).foreach(someMethodThatTakesAJavaBoolean(_))  // lol java
 
 In general, logic that handles a choice between two or more outcomes should prefer to use `match`.
 
+## If, Then, Else
+
+One-line if–else statements are allowed if the whole expression is very short and comprehensible.
+
+```scala
+val b: Int = if(click) then 1 else 0
+```
+
+In case of multi-line if–else statement, always use curly braces and put `} else {` on one line:
+
+Do
+
+```scala
+val b: Option[String] = if(stmt.isEmpty) {
+  None
+} else {
+  // do something
+  // with stmt
+  // on more lines
+}
+```
+
+Don't:
+
+```scala
+val b: Option[String] = if(stmt.isEmpty)
+  None
+else {
+  // do something
+  // with stmt
+  // on more lines
+}
+```
+
 ## Match Statements
 
 When you `match` on any type, follow these rules:
@@ -427,6 +504,40 @@ You should enforce expected type signatures, as `match` does not guarantee consi
 
 ## For Comprehension
 
+### When To Use for Comprehension?
+
+#### Futures
+
+If `map`/`flatMap` is used only once, it is not necessary to use for comprehension. However, in case of composing more 
+futures, use for comprehension.
+
+Do
+
+```scala
+val f2 = f1.map(f => calculate(f))
+
+val f3 = for {
+  a <- f1
+  b <- f2
+  c = op1(a, b)
+  d = op2(a, c)
+} yield op3(c, d)
+```
+
+Don't
+
+```scala
+val f3 = f1.flatMap { a =>
+  f2.map { b => 
+    val c = op1(a, b)
+    val d = op2(a, c)
+    op3(c, d)
+  }
+}
+```
+
+### Styling
+
 For comprehensions should generally not be wrapped in parentheses in order to recover, flatMap, etc.
 Instead, separate the for comprehension into its own variable and perform additional operations on that.
 
@@ -456,6 +567,30 @@ for {
 }
 ```
 
+# Other Scala Features
+
+## String Interpolation
+
+Never use string interpolation in logging.
+
+Do
+
+```scala
+log.error("An exception was thrown for value {}: {}", value, ex)
+log.error(String.format("An exception was thrown for value %.12f: %s"), value, ex)
+```
+
+Don't
+
+```scala
+log.error(s"An exception was thrown for value $value: $ex")
+log.error(f"An exception was thrown for value $value%.12f: $ex")
+```
+
+## Functors
+
+Do not nest `map` more than twice. Use named values/functions instead.
+
 # Akka
 
 ## Ask and Tell
@@ -472,6 +607,23 @@ is preferred over
 ```scala
 someActor1.tell(msg)
 someActor2.ask(msg)
+```
+
+## Naming Conventions
+
+In Akka configuration, use lower-case names with words devided by hyphen.
+
+Do
+
+```
+number-of-something = 5
+```
+
+Don't
+
+```
+number_of_something = 5
+numberOfSomethingElse = 6
 ```
 
 # Tests
