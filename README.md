@@ -167,7 +167,7 @@ private implicit lazy val someSetting = ...
 
 Use `private[this]` modifier (instance-scope hiding) instead of `private` (unless required by use case).
 
-> *Why?* Scala compiler can optimize `private[this]` modifiers.
+> **Why?** Scala compiler can optimize `private[this]` modifiers.
 
 # Functions
 
@@ -230,6 +230,7 @@ class OurClass {
   }
 
 }
+```
 
 ### Parameter Lists
 
@@ -455,8 +456,7 @@ When you `match` on any type, follow these rules:
   the right of the closing `)`
 3. Short single line expressions should be on the same line as the `case`
 4. Long single line and multi-line expressions should be on the line below the case, indented one level from the `case`.
-5. Do not add extra newlines in between each case statement.
-6. Filters on case statements should be on the same line if doing so will not make the line excessively long.
+5. Filters on case statements should be on the same line if doing so will not make the line excessively long.
 
 Here's a complete example:
 
