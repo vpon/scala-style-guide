@@ -15,7 +15,7 @@ guides in this repository:
 
 # Line Length
 
-* Use a maximum line length of 160 characters.
+* Use a maximum line length of 140 characters.
 
 # Names
 
