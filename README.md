@@ -92,7 +92,6 @@ akka
 spray
 all other imports
 ___blank line___
-com.ebay
 com.vpon
 ```
 
