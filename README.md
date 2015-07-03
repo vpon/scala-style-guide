@@ -608,6 +608,42 @@ someActor1.tell(msg)
 someActor2.ask(msg)
 ```
 
+## Actors
+
+**Good practice**: It is desirable within an actor implementation to use properly named pure functions that only return required result in form of value. If the result is required to be sent to other actor (e. g. sender), it should be done outside this function.
+
+This point is marked as _good practice_ because there may be cases when doing opposite is justifiable.
+
+```scala
+class MyActor extends Actor {
+  def receive = {
+     case "statistics" => sender() ! statistics   // ← we immediately know what is happening
+  }
+
+  def statistics = {
+    val result = ??? // do some calculation
+    result
+  }
+}
+```
+
+is preferred over
+
+```scala
+class MyActor extends Actor {
+  def receive = {
+     case "statistics" => reportStatistics()   // ← we need to check the function to see what is happening
+  }
+
+  def reportStatistics() = {
+    val result = ??? // do some calculation
+    sender() ! result
+  }
+}
+```
+
+> **Why?** `receive` method is an entry point for readers of actor code and gives thorough picture about actor's behavior. Therefore it should be easy to understand actor's behavior only by looking at the `receive` method. Following this good practice there is a clear separation of responsibilities between calculating results (pure function) and effects (sending result). It also helps testability.
+
 ## Naming Conventions
 
 In Akka configuration, use lower-case names with words devided by hyphen.
