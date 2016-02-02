@@ -114,8 +114,8 @@ case class UnknownMyClass(count: Int) extends MyClass {
 2. If providing a cause is desirable and not mandatory then define it as an option. Note, the use of ```.orNull```.
 
 ```scala
-class CrazyException(msg: String, cause: Option[Throwable] = None) extends Exception(msg, cause.orNull)
-class SuperCrazyError(msg: String, cause: Option[Throwable] = None) extends Error(msg, cause.orNull)
+class CrazyException(msg: String, cause: Option[Throwable]) extends Exception(msg, cause.orNull)
+class SuperCrazyError(msg: String, cause: Option[Throwable]) extends Error(msg, cause.orNull)
 ```
 
 # Imports
