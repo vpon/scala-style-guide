@@ -65,14 +65,57 @@ package object mypackage {
 
 Limit the number of public methods in your class to 30.
 
+## Default Parameter Values
+
+Eliminate default values in classes and case classes, especially when adding more fields to existing classes. Default values may be used only in justified cases. Does the class appear in too many places and there would be a lot of code to fix? That is **not** justified case.
+
+Prefer
+
+```scala
+case class MyClass(count: Int, title: String)
+
+```
+
+over
+
+```scala
+case class MyClass(count: Int, title: String = "Unknown")
+```
+
+#### How to deal with this rule?
+
+In certain cases it may be convenient to add factory methods on companion objects which would create new instance using default values.
+
+```scala
+object MyClass {
+  def unknown(count: Int) = MyClass(count, "Unkown")
+}
+```
+
+Other alternative may be to reflect different possibilities in different types:
+
+```scala
+sealed trait MyClass {
+  def count: Int
+  def title: String
+}
+
+case class KnownMyClass(count: Int, title: String) extends MyClass
+case class UnknownMyClass(count: Int) extends MyClass {
+  val title = "Unknown"
+}
+```
+
+> **Why?** Default values for class fields may introduce bugs that are hard to track. By eliminating usage of default values when adding more fields to a class, developer is forced to examine its every occurence and fix according to situation.
+
 # Throwables
 
 1. Prefer non-case classes when defining exceptions and errors unless you plan on pattern matching on the exception.
 2. If providing a cause is desirable and not mandatory then define it as an option. Note, the use of ```.orNull```.
 
 ```scala
-class CrazyException(msg: String, cause: Option[Throwable] = None) extends Exception(msg, cause.orNull)
-class SuperCrazyError(msg: String, cause: Option[Throwable] = None) extends Error(msg, cause.orNull)
+class CrazyException(msg: String, cause: Option[Throwable]) extends Exception(msg, cause.orNull)
+class SuperCrazyError(msg: String, cause: Option[Throwable]) extends Error(msg, cause.orNull)
 ```
 
 # Imports
