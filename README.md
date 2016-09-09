@@ -635,7 +635,7 @@ Do not nest `map` more than twice. Use named values/functions instead.
 
 ## Handling Date And Time
 
-It is strongly recommended to use time library (either `java.time` or Joda Time) instead of doing calculations with milliseconds. As one implication of this rule, using System.currentTimeMillis()` is strongly discouraged and should not be used for time operations.
+It is strongly recommended to use time library (either `java.time` or Joda Time) instead of doing calculations with milliseconds. As one implication of this rule, using `System.currentTimeMillis()` is strongly discouraged and should not be used for time operations.
  
 Do
 
