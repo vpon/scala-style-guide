@@ -652,7 +652,7 @@ val twoWeeks = 14 * 24 * 60 * 60 * 1000
 val twoWeeksLater = now + twoWeeks
 ```
 
-> **Why?** Date/time arithmetic is extremely complicated domain and it is impossible to make it right on one's own. Not every year has 365 days, not every day has 24×60×60 seconds, time zones change a few times a year, daylight-saving times rule change all the time etc.
+> **Why?** Date/time arithmetic is extremely complicated domain and it is impossible to make it right on one's own. Not every year has 365 days, not every day has 24×60×60 seconds, time zones change a few times a year, daylight-saving time rules change all the time etc.
 
 # Akka
 
