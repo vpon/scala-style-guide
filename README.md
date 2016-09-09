@@ -633,27 +633,6 @@ log.error(f"An exception was thrown for value $value%.12f: $ex")
 
 Do not nest `map` more than twice. Use named values/functions instead.
 
-## Handling Date And Time
-
-It is strongly recommended to use time library (either `java.time` or Joda Time) instead of doing calculations with milliseconds. As one implication of this rule, using `System.currentTimeMillis()` is strongly discouraged and should not be used for time operations.
-
-Do
-
-```scala
-val baseDate = LocalDateTime.now()
-val twoWeeksLater = baseDate.plusWeeks(2)
-```
-
-Don't
-
-```scala
-val now = System.currentTimeMillis()
-val twoWeeks = 14 * 24 * 60 * 60 * 1000
-val twoWeeksLater = now + twoWeeks
-```
-
-> **Why?** Date/time arithmetic is extremely complicated domain and it is impossible to make it right on one's own. Not every year has 365 days, not every day has 24×60×60 seconds, time zones change a few times a year, daylight-saving time rules change all the time etc.
-
 # Akka
 
 ## Ask and Tell
