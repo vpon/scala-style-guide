@@ -108,15 +108,6 @@ case class UnknownMyClass(count: Int) extends MyClass {
 
 > **Why?** Default values for class fields may introduce bugs that are hard to track. By eliminating usage of default values when adding more fields to a class, developer is forced to examine its every occurence and fix according to situation.
 
-# Throwables
-
-1. Prefer non-case classes when defining exceptions and errors unless you plan on pattern matching on the exception.
-2. If providing a cause is desirable and not mandatory then define it as an option. Note, the use of ```.orNull```.
-
-```scala
-class CrazyException(msg: String, cause: Option[Throwable]) extends Exception(msg, cause.orNull)
-class SuperCrazyError(msg: String, cause: Option[Throwable]) extends Error(msg, cause.orNull)
-```
 
 # Imports
 
@@ -509,6 +500,44 @@ Option(123) match {
     doMoreWorkOn(intermediate)
   case _ => 123
 }
+```
+
+## Exceptions
+
+### Catching Exceptions
+
+In try-catch block, do not catch `Throwable`, use `NonFatal(ex)` instead.
+
+Do
+
+```scala
+try {
+  somethingDangerous()
+} catch {
+  case NonFatal(ex)=> // handle ex
+}
+```
+
+Don't:
+
+```scala
+try {
+  somethingDangerous()
+} catch {
+  case ex: Throwable => // handle ex
+}
+```
+
+> **Why?** There are multiple exceptions that extend `Throwable` but in general should not be caught, for example `OutOfMemoryError` or `StackOverflowError`. Also there exists a set of exceptions that extend `ControlThrowable` and are used for flow control (e. g. `break()`), catching these would cause hard-to-debug errors.
+
+### Custom Exceptions
+
+1. Prefer non-case classes when defining exceptions and errors unless you plan on pattern matching on the exception.
+2. If providing a cause is desirable and not mandatory then define it as an option. Note, the use of ```.orNull```.
+
+```scala
+class CrazyException(msg: String, cause: Option[Throwable]) extends Exception(msg, cause.orNull)
+class SuperCrazyError(msg: String, cause: Option[Throwable]) extends Error(msg, cause.orNull)
 ```
 
 ## Option
